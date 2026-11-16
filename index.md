@@ -8,7 +8,7 @@ When a lab has nine annotated images, how much of a model leaderboard can it tru
 
 Phongsakon Mark Konrad and seven coauthors · Biomedical Signal Processing and Control, August 2026 · [Journal](https://www.sciencedirect.com/science/article/pii/S1746809426017805) · [PDF](https://arxiv.org/pdf/2509.05892) · [Markdown](index.md) · Cite
 
-*Figure.* IllustrationAn artery section under the microscope. One predicted outline is sharp and the others blur into each other. The drawing carries no measured values. The measured board is Figure 1.
+*Figure.* Figure 2 from the paperHow one image becomes training data. (A) The stained section. (B) The expert line annotation. (C) The ground truth mask for lumen (yellow), neointima (red) and media (blue). Every model on this page learns from nine images like this one.
 
 ## In short
 
@@ -80,7 +80,7 @@ Pick a model below to see which others its interval touches. Switch to 3-fold va
 
 Effect sizes tell the same story from another side. Gaps between families are large. MedSAM against FCN gives d = 8.54. Gaps inside a family are small, UNet against UNet-ResNet34 gives d = 0.13. Hover the matrix to read any pair.
 
-*Figure.* **Pairwise Cohen's d, leave-one-out macro Dice.** Each cell is the row model against the column model. Darker means a larger gap. Outlined cells pass the 0.8 threshold for a large effect.
+*Figure.* **Pairwise Cohen's d, leave-one-out macro Dice.** Each cell is the row model against the column model. A stronger colour means a larger gap, in both themes. Outlined cells pass the 0.8 threshold for a large effect.
 
 ## Ranks swing from fold to fold
 

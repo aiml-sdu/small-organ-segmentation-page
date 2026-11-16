@@ -122,9 +122,9 @@ header.post{padding:56px 0 22px;max-width:760px}
 header.post h1{font-family:var(--sans);font-weight:600;font-size:clamp(30px,4.4vw,46px);line-height:1.12;letter-spacing:-.018em;margin:0 0 18px}
 header.post .intro{font-size:20px;color:var(--ink2);margin:0}
 .heroill{margin:26px 0 0;padding:0;border:0;background:none;border-radius:0}
-.heroill svg{width:100%;height:auto;display:block;border-radius:4px}
+.heroill img{width:100%;height:auto;display:block;border-radius:6px;border:1px solid var(--rule);background:#fafafa}
 .heroill figcaption{max-width:760px}
-@media (max-width:640px){.heroill{overflow:hidden}.heroill svg{width:200%;margin-left:-50%}.heroill .lbl{display:none}}
+
 .ill-tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--orc);margin-right:8px}
 .post-grid{display:grid;grid-template-columns:minmax(0,700px) 220px;gap:64px;margin-top:44px;justify-content:space-between}
 .post-grid>*{min-width:0}
@@ -186,51 +186,8 @@ sup a{font-family:var(--sans);font-size:11px;text-decoration:none}
   <p class="metaline">Phongsakon Mark Konrad and seven coauthors · Biomedical Signal Processing and Control, August 2026 · <a href="https://www.sciencedirect.com/science/article/pii/S1746809426017805" rel="noopener">Journal ↗</a> · <a href="https://arxiv.org/pdf/2509.05892" rel="noopener">PDF</a> · <a href="index.md">Markdown</a> · <a href="#cite">Cite</a></p>
 </header>
 <figure class="heroill" aria-labelledby="illcap">
-<svg viewBox="0 0 1180 470" role="img" aria-label="Illustration of an artery section under a microscope. One outline is sharp and the others blur into each other.">
- <defs>
-  <filter id="bl1"><feGaussianBlur stdDeviation="2.2"/></filter>
-  <filter id="bl2"><feGaussianBlur stdDeviation="4.5"/></filter>
-  <radialGradient id="fov" cx="50%" cy="50%" r="50%"><stop offset="78%" stop-color="var(--paper)"/><stop offset="100%" stop-color="var(--glass)"/></radialGradient>
-  <clipPath id="cl"><circle cx="590" cy="235" r="196"/></clipPath>
-  <pattern id="tex" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2" cy="3" r=".9" fill="var(--orc)" opacity=".18"/><circle cx="7" cy="7" r=".7" fill="var(--fnd)" opacity=".16"/></pattern>
- </defs>
- <rect x="0" y="0" width="1180" height="470" fill="var(--glass)"/>
- <rect x="150" y="58" width="880" height="354" rx="6" fill="var(--paper)" stroke="var(--rule)"/>
- <rect x="150" y="58" width="190" height="354" rx="6" fill="var(--label)" opacity=".9"/>
- <g class="lbl" font-family="Space Mono, monospace" font-size="13" fill="var(--label-ink)"><text x="172" y="98">SECTION</text><text x="172" y="120">carotid, injured</text><text x="172" y="142">orcein</text></g>
- <circle cx="590" cy="235" r="200" fill="url(#fov)" stroke="var(--rule)" stroke-width="2"/>
- <g clip-path="url(#cl)">
-  <rect x="380" y="30" width="420" height="420" fill="url(#tex)"/>
-  <path d="M470 240 C470 160 540 118 600 122 C680 128 720 190 716 250 C712 320 650 360 588 356 C520 352 470 310 470 240Z" fill="var(--fnd)" opacity=".16"/>
-  <path d="M510 238 C512 182 556 160 598 162 C650 166 676 206 674 246 C672 292 632 318 592 316 C548 314 508 288 510 238Z" fill="var(--orc)" opacity=".18"/>
-  <path d="M552 236 C554 206 574 196 596 196 C622 198 634 218 632 240 C630 262 612 276 592 274 C568 272 550 258 552 236Z" fill="var(--paper)"/>
-  <g fill="none" stroke="var(--muted)" stroke-width="2.2" opacity=".55" filter="url(#bl2)">
-   <path d="M500 236 C506 176 554 150 602 154 C660 160 686 206 680 252 C676 300 630 326 588 322 C536 318 496 290 500 236Z"/>
-   <path d="M516 244 C512 186 560 164 606 168 C654 172 672 214 668 256 C664 294 628 314 590 312 C548 310 518 286 516 244Z"/>
-   <path d="M504 230 C510 172 562 152 596 156 C652 160 690 200 684 244 C680 296 636 330 584 326 C540 322 500 284 504 230Z"/>
-   <path d="M522 236 C526 190 566 168 604 172 C648 176 668 212 664 250 C660 292 626 310 592 308 C556 306 520 280 522 236Z"/>
-  </g>
-  <g fill="none" stroke="var(--cnn)" stroke-width="2" opacity=".5" filter="url(#bl1)">
-   <path d="M508 242 C508 184 556 160 600 160 C654 162 680 208 676 250 C672 294 634 320 590 318 C546 316 508 290 508 242Z"/>
-   <path d="M512 232 C516 180 558 158 600 164 C648 170 674 204 670 244 C666 292 628 316 594 314 C552 312 510 282 512 232Z"/>
-  </g>
-  <g fill="none" stroke="var(--tfm)" stroke-width="2" opacity=".55" filter="url(#bl1)">
-   <path d="M506 236 C510 180 556 158 598 160 C652 164 678 206 674 248 C670 294 630 318 590 316 C544 314 504 286 506 236Z"/>
-  </g>
-  <g fill="none" stroke="var(--fnd)" stroke-width="2" opacity=".5" filter="url(#bl1)">
-   <path d="M514 240 C514 186 558 162 600 164 C650 168 672 208 670 248 C668 290 630 314 592 312 C550 310 514 286 514 240Z"/>
-   <path d="M502 238 C506 178 556 154 600 158 C656 162 684 204 678 250 C674 298 632 322 588 320 C540 318 500 288 502 238Z"/>
-  </g>
-  <path d="M510 238 C512 182 556 160 598 162 C650 166 676 206 674 246 C672 292 632 318 592 316 C548 314 508 288 510 238Z" fill="none" stroke="var(--orc)" stroke-width="2.6"/>
- </g>
- <g class="lbl" font-family="Inter Tight, sans-serif" font-size="14" fill="var(--ink2)">
-  <line x1="676" y1="200" x2="842" y2="132" stroke="var(--orc)" stroke-width="1"/><circle cx="676" cy="200" r="3" fill="var(--orc)"/>
-  <text x="850" y="128" fill="var(--ink)">one outline in focus</text><text x="850" y="148">the leader stands apart</text>
-  <line x1="686" y1="290" x2="842" y2="330" stroke="var(--muted)" stroke-width="1"/><circle cx="686" cy="290" r="3" fill="var(--muted)"/>
-  <text x="850" y="334" fill="var(--ink)">the rest overlap</text><text x="850" y="354">order below first is unclear</text>
- </g>
-</svg>
-<figcaption id="illcap"><span class="ill-tag">Illustration</span>An artery section under the microscope. One predicted outline is sharp and the others blur into each other. The drawing carries no measured values. The measured board is Figure 1.</figcaption>
+<img src="img/data-sample.webp" width="1600" height="487" alt="Three panels of one artery section. A shows the stained tissue, B shows the expert outlines drawn on it, C shows the mask with lumen in yellow, neointima in red and media in blue." loading="eager">
+<figcaption id="illcap"><span class="ill-tag">Figure 2 from the paper</span>How one image becomes training data. (A) The stained section. (B) The expert line annotation. (C) The ground truth mask for lumen (yellow), neointima (red) and media (blue). Every model on this page learns from nine images like this one.</figcaption>
 </figure>
 </div>
 <div class="topbar" id="topbar"><a href="#tldr">In short</a><a href="#defs">Terms</a><a href="#ch1">Intervals</a><a href="#ch2">Folds</a><a href="#ch3">Second dataset</a><a href="#ch4">Choices</a><a href="#scope">Scope</a><a href="#cite">Cite</a></div>
@@ -303,8 +260,8 @@ sup a{font-family:var(--sans);font-size:11px;text-decoration:none}
 </figure>
 <p>Effect sizes tell the same story from another side. Gaps between families are large. MedSAM against FCN gives d = 8.54. Gaps inside a family are small, UNet against UNet-ResNet34 gives d = 0.13. Hover the matrix to read any pair.</p>
 <figure>
- <svg id="dFig" viewBox="0 0 680 420" role="img" aria-label="Matrix of pairwise Cohen's d values for leave-one-out macro Dice"></svg>
- <figcaption><b>Pairwise Cohen's d, leave-one-out macro Dice.</b> Each cell is the row model against the column model. Darker means a larger gap. Outlined cells pass the 0.8 threshold for a large effect.</figcaption>
+ <svg id="dFig" viewBox="0 0 680 460" role="img" aria-label="Matrix of pairwise Cohen's d values for leave-one-out macro Dice"></svg>
+ <figcaption><b>Pairwise Cohen's d, leave-one-out macro Dice.</b> Each cell is the row model against the column model. A stronger colour means a larger gap, in both themes. Outlined cells pass the 0.8 threshold for a large effect.</figcaption>
 </figure>
 
 <h2 id="ch2">Ranks swing from fold to fold</h2>
@@ -406,6 +363,19 @@ const famName={Foundation:'foundation model',Transformer:'transformer',CNN:'mode
 const short={"MedSAM+UNet":"MedSAM+UNet","Lightweight UNet":"LW-UNet","UNet-ResNet34":"UNet-R34","DeepLabV3+":"DeepLabV3+"};
 const sn=m=>short[m]||m;
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* place scatter labels so none touches another label, a dot or the plot edge */
+function declutter(svg,items,box){
+ const placed=[];const dots=items.map(it=>({x:it.x-8,y:it.y-8,w:16,h:16}));
+ const hit=(a,b)=>a.x<b.x+b.w&&b.x<a.x+a.w&&a.y<b.y+b.h&&b.y<a.y+a.h;
+ const cand=[[10,4,'start'],[-10,4,'end'],[10,-10,'start'],[-10,-10,'end'],[10,18,'start'],[-10,18,'end'],[0,-14,'middle'],[0,24,'middle'],[10,-24,'start'],[-10,-24,'end'],[10,32,'start'],[-10,32,'end'],[-14,-40,'end'],[-14,46,'end'],[-24,-56,'end'],[-24,62,'end'],[14,-40,'start'],[14,46,'start']];
+ items.forEach(it=>{const t=it.t;let best=null;
+  for(const c of cand){t.setAttribute('x',it.x+c[0]);t.setAttribute('y',it.y+c[1]);t.setAttribute('text-anchor',c[2]);
+   const b=t.getBBox();const r={x:b.x-2,y:b.y-1,w:b.width+4,h:b.height+2};
+   const inside=r.x>=box[0]&&r.x+r.w<=box[2]&&r.y>=box[1]&&r.y+r.h<=box[3];
+   if(inside&&!placed.some(q=>hit(r,q))&&!dots.some(q=>hit(r,q))){best=r;if(Math.abs(c[1])>34){const ly=c[1]<0?r.y+r.h:r.y;const ln=document.createElementNS(NS,'line');ln.setAttribute('x1',it.x);ln.setAttribute('y1',it.y+(c[1]<0?-7:7));ln.setAttribute('x2',it.x+c[0]*0.85);ln.setAttribute('y2',ly);ln.setAttribute('stroke',css('--ink2'));ln.setAttribute('stroke-width','0.8');svg.insertBefore(ln,svg.firstChild);}break}}
+  if(!best){const c=cand[0];t.setAttribute('x',it.x+c[0]);t.setAttribute('y',it.y+c[1]);t.setAttribute('text-anchor',c[2]);const b=t.getBBox();best={x:b.x,y:b.y,w:b.width,h:b.height}}
+  placed.push(best)});
+}
 function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
 function clear(s){while(s.firstChild)s.removeChild(s.firstChild)}
 const tip=document.getElementById('tip');
@@ -488,18 +458,35 @@ document.querySelectorAll('#ciSeg button').forEach(b=>b.onclick=()=>{ciP=+b.data
 
 /* chapter 1 cohen d */
 const dFig=document.getElementById('dFig');
+function bestInk(fill,op,dark){
+ const rgb=h=>{h=h.trim();if(h[0]==='#'){const n=parseInt(h.slice(1),16);return[n>>16,n>>8&255,n&255]}return h.match(/[\d.]+/g).slice(0,3).map(Number)};
+ const L=c=>{const q=c.map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*q[0]+.7152*q[1]+.0722*q[2]};
+ const bg=rgb(getComputedStyle(dFig.closest('figure')).backgroundColor),f=rgb(fill);
+ const mix=f.map((v,i)=>v*op+bg[i]*(1-op));const Lm=L(mix);
+ const cr=c=>{const l=L(rgb(c));return(Math.max(l,Lm)+.05)/(Math.min(l,Lm)+.05)};
+ const a=dark?'#f2f0f4':'#ffffff',b=dark?'#14161a':css('--ink');return cr(a)>=cr(b)?a:b}
 function drawD(){
- clear(dFig);const cols=M.slice(1), rows=M.slice(0,9);const x0=120,y0=60,cw=56,ch=36;
- cols.forEach((c,j)=>{const t=el('text',{x:x0+j*cw+cw/2,y:y0-10,'text-anchor':'end',transform:'rotate(-35 '+(x0+j*cw+cw/2)+' '+(y0-10)+')',class:'axt','font-size':'11.5'},dFig);t.textContent=sn(c)});
+ clear(dFig);const cols=M.slice(1), rows=M.slice(0,9);const x0=118,y0=62,cw=62,ch=36,vmax=8.54;
+ const split={"MedSAM+UNet":["MedSAM","+UNet"],"DeepLabV3+":["DeepLab","V3+"],"UNet-R34":["UNet","R34"],"SegFormer":["Seg","Former"]};
+ cols.forEach((c,j)=>{const lines=split[sn(c)]||[sn(c)];const cx=x0+j*cw+cw/2;
+  lines.forEach((ln,k)=>{const t=el('text',{x:cx,y:y0-10-(lines.length-1-k)*14,'text-anchor':'middle',class:'axt','font-size':'11'},dFig);t.textContent=ln})});
  const dark=curDark();
+ const shade=v=>Math.min(1,Math.log(1+v)/Math.log(1+vmax));
  rows.forEach((r,i)=>{const t=el('text',{x:x0-8,y:y0+i*ch+ch/2+4,'text-anchor':'end',class:'axt','font-size':'11.5'},dFig);t.textContent=sn(r);
-  D.cohen[r].forEach((v,k)=>{const j=i+k;const a=Math.min(1,Math.log(1+v)/Math.log(1+8.54));
+  D.cohen[r].forEach((v,k)=>{const j=i+k;const a=shade(v);
    const x=x0+j*cw,y=y0+i*ch;
-   el('rect',{x:x+1,y:y+1,width:cw-2,height:ch-2,rx:2,fill:css('--fnd'),'fill-opacity':(0.08+0.85*a).toFixed(3),stroke:v>0.8?css('--ink'):'none','stroke-width':v>0.8?0.8:0},dFig);
-   const tt=el('text',{x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle','font-size':'11.5','font-family':'Space Mono',fill:(!dark&&a>0.55)?'#ffffff':css('--ink')},dFig);tt.textContent=v.toFixed(2);
+   el('rect',{x:x+1,y:y+1,width:cw-2,height:ch-2,rx:2,fill:css('--fnd'),'fill-opacity':(0.08+0.85*a).toFixed(3),stroke:v>0.8?css('--ink'):'none','stroke-width':v>0.8?1:0},dFig);
+   const tt=el('text',{x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle','font-size':'11.5','font-family':'Space Mono',fill:bestInk(css('--fnd'),0.08+0.85*a,dark)},dFig);tt.textContent=v.toFixed(2);
    const h=el('rect',{x:x,y:y,width:cw,height:ch,fill:'transparent'},dFig);
    h.addEventListener('mousemove',e=>showTip(e,'<b>'+r+'</b> against <b>'+cols[j]+'</b><br>d = '+v.toFixed(2)+(v>0.8?', a large effect':'')));h.addEventListener('mouseleave',hideTip);
   })});
+ /* legend under the matrix */
+ const lx=x0, ly=y0+9*ch+30, lw=200;
+ const lt=el('text',{x:lx,y:ly,class:'axt','font-size':'11'},dFig);lt.textContent='Colour strength = size of gap';
+ for(let q=0;q<20;q++){const v=vmax*q/19;el('rect',{x:lx+q*lw/20,y:ly+8,width:lw/20+0.5,height:12,fill:css('--fnd'),'fill-opacity':(0.08+0.85*shade(v)).toFixed(3)},dFig)}
+ [[0,'0'],[vmax,'8.54']].forEach(([v,l])=>{const t=el('text',{x:lx+lw*(v/vmax),y:ly+34,'text-anchor':v?'end':'start',class:'axt','font-size':'10.5'},dFig);t.textContent='d = '+l});
+ el('rect',{x:lx+lw+40,y:ly+8,width:22,height:14,rx:2,fill:'none',stroke:css('--ink'),'stroke-width':1},dFig);
+ const ot=el('text',{x:lx+lw+70,y:ly+19,class:'axt','font-size':'11'},dFig);ot.textContent='outline: d above 0.8';
 }
 
 /* chapter 2 ranks */
@@ -558,12 +545,13 @@ function drawSh(){
  const a=el('text',{x:x1,y:y0+32,'text-anchor':'end',class:'axt'},shFig);a.textContent='HD95 in pixels';
  const b=el('text',{x:x0,y:y1-4,class:'axt'},shFig);b.textContent='Dice';
  const off={"MedSAM+UNet":[8,14],"MedSAM":[8,-8],"UNet":[8,-8],"Lightweight UNet":[8,14],"SegNet":[-8,-8],"FCN":[-8,16],"DeepLabV3+":[-8,-8],"UNet-ResNet34":[8,-8],"SAM":[8,-8],"SegFormer":[8,-8]};
- M.forEach(m=>{const s=D.shift[m];const x=sx(s[0]),y=sy(s[4]);
+ const labs=[];M.forEach(m=>{const s=D.shift[m];const x=sx(s[0]),y=sy(s[4]);
   el('circle',{cx:x,cy:y,r:7,fill:col(m),stroke:css('--paper'),'stroke-width':2},shFig);
-  const o=off[m];const t=el('text',{x:x+o[0],y:y+o[1],'text-anchor':o[0]<0?'end':'start','font-size':'12',fill:css('--ink2')},shFig);t.textContent=sn(m);
+  const t=el('text',{x:x,y:y,'font-size':'12',fill:css('--ink2')},shFig);t.textContent=sn(m);labs.push({t,x,y});
   const h=el('circle',{cx:x,cy:y,r:14,fill:'transparent'},shFig);
   h.addEventListener('mousemove',e=>showTip(e,'<b>'+m+'</b><br>Dice '+f3(s[4])+'<br>HD95 '+s[0]+' ± '+s[1]+' px<br>ASSD '+s[2]+' ± '+s[3]+' px'));h.addEventListener('mouseleave',hideTip);
  });
+ declutter(shFig,labs,[x0,y1,x1+28,y0]);
 }
 
 /* chapter 4 efficiency */
@@ -575,12 +563,13 @@ function drawEf(){
  const a=el('text',{x:x1,y:y0+32,'text-anchor':'end',class:'axt'},efFig);a.textContent='parameters, millions';
  const b=el('text',{x:x0,y:y1-4,class:'axt'},efFig);b.textContent='leave-one-out Dice';
  const off={"MedSAM+UNet":[-10,16],"SAM":[10,-8],"MedSAM":[10,-8],"FCN":[-10,-10],"SegNet":[10,14],"UNet":[10,-8],"DeepLabV3+":[-10,14],"UNet-ResNet34":[-10,-8],"Lightweight UNet":[10,4],"SegFormer":[10,-8]};
- M.forEach(m=>{const e=D.eff[m];const x=sx(e[0]),y=sy(e[6]);
+ const labs=[];M.forEach(m=>{const e=D.eff[m];const x=sx(e[0]),y=sy(e[6]);
   el('circle',{cx:x,cy:y,r:7,fill:col(m),stroke:css('--paper'),'stroke-width':2},efFig);
-  const o=off[m];const t=el('text',{x:x+o[0],y:y+o[1],'text-anchor':o[0]<0?'end':'start','font-size':'12',fill:css('--ink2')},efFig);t.textContent=sn(m);
+  const t=el('text',{x:x,y:y,'font-size':'12',fill:css('--ink2')},efFig);t.textContent=sn(m);labs.push({t,x,y});
   const h=el('circle',{cx:x,cy:y,r:14,fill:'transparent'},efFig);
   h.addEventListener('mousemove',ev=>showTip(ev,'<b>'+m+'</b><br>'+e[0]+' M parameters<br>'+e[3]+' ms per image, '+e[4]+' images per second<br>'+e[2]+' GB memory<br>Dice '+f3(e[6])));h.addEventListener('mouseleave',hideTip);
  });
+ declutter(efFig,labs,[x0,y1,x1+28,y0]);
 }
 
 /* thumbnails */
