@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nine Slides, Ten Models</title>
+<meta name="description" content="Project page for Challenges in Deep Learning-Based Small Organ Segmentation, Biomedical Signal Processing and Control 2026. On nine histology images, a leaderboard of ten segmentation models is mostly noise below its first place.">
+<script>(function(){try{var t=localStorage.getItem('page-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Inter+Tight:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --glass:#f3f6f7; --paper:#fbfcfc; --ink:#1d1a22; --ink2:#4a4652; --muted:#6e6a75; --rule:#d9dee1; --rule2:#e8ecee;
+  --fnd:#6b3a74; --tfm:#b2552f; --cnn:#2f6f78; --cls:#8a8580;
+  --orc:#7a2f4a; --orc-soft:#f1e3ea; --label:#efe9dc; --label-ink:#4b3f2a;
+  --shadow:0 1px 0 rgba(20,20,30,.04),0 8px 30px rgba(20,20,40,.06);
+  --serif:'Spectral',Georgia,serif; --sans:'Inter Tight',system-ui,sans-serif; --mono:'Space Mono',ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --glass:#14161a; --paper:#1a1d22; --ink:#ece9ef; --ink2:#c3bfca; --muted:#9a96a2; --rule:#2e333a; --rule2:#252a30;
+  --fnd:#c79fd2; --tfm:#e6936d; --cnn:#79bcc4; --cls:#a39e97;
+  --orc:#e58fb0; --orc-soft:#2c1f27; --label:#2a2620; --label-ink:#d9cdb3; --shadow:none; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --glass:#14161a; --paper:#1a1d22; --ink:#ece9ef; --ink2:#c3bfca; --muted:#9a96a2; --rule:#2e333a; --rule2:#252a30;
+  --fnd:#c79fd2; --tfm:#e6936d; --cnn:#79bcc4; --cls:#a39e97;
+  --orc:#e58fb0; --orc-soft:#2c1f27; --label:#2a2620; --label-ink:#d9cdb3; --shadow:none; color-scheme:dark;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--glass);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--orc);text-decoration-thickness:1px;text-underline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.col{max-width:700px}
+header.top{padding:64px 0 36px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,5vw,54px);line-height:1.08;margin:14px 0 10px;letter-spacing:-.01em;max-width:900px}
+.sub{font-family:var(--sans);font-size:20px;color:var(--ink2);margin:0 0 22px;max-width:820px}
+.stand{font-size:22px;font-style:italic;color:var(--ink);max-width:760px;margin:0 0 26px}
+.byline{font-family:var(--sans);font-size:15px;color:var(--ink2);max-width:860px}
+.byline .aff{color:var(--muted);font-size:13.5px;margin-top:6px}
+.links{font-family:var(--sans);font-size:15.5px;margin-top:20px}
+.links a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.links a:hover{border-color:var(--orc);color:var(--orc)}
+.links .sep{color:var(--muted);margin:0 8px}
+#themeTg{position:fixed;right:18px;bottom:18px;z-index:50;font-family:var(--mono);font-size:12px;background:var(--paper);color:var(--ink);border:1px solid var(--rule);border-radius:999px;padding:8px 14px;cursor:pointer;box-shadow:var(--shadow)}
+#themeTg:focus-visible,button:focus-visible{outline:2px solid var(--orc);outline-offset:2px}
+
+/* the slide */
+.slide{--hb:var(--paper);background:var(--hb);border-block:1px solid var(--rule);padding:34px 0 30px}
+.slidebox{display:grid;grid-template-columns:150px 1fr;border:1px solid var(--rule);border-radius:6px;background:var(--hb);overflow:hidden;box-shadow:var(--shadow)}
+.frost{background:var(--label);color:var(--label-ink);padding:18px 14px;font-family:var(--mono);font-size:11.5px;line-height:1.55;border-right:1px solid var(--rule);background-image:repeating-linear-gradient(135deg,transparent 0 6px,rgba(0,0,0,.025) 6px 7px)}
+.frost b{display:block;font-size:13px;margin-bottom:8px}
+.stage{padding:18px 22px 16px}
+.instr{font-family:var(--sans);font-size:14.5px;color:var(--ink2);margin:0 0 12px}
+.lenses{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.lenses button,.seg button{font-family:var(--mono);font-size:12px;border:1px solid var(--rule);background:transparent;color:var(--ink2);border-radius:999px;padding:6px 11px;cursor:pointer;min-height:34px}
+.lenses button[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.lensrow{font-family:var(--mono);font-size:11px;color:var(--muted);margin:10px 0 4px}
+#board{width:100%;height:auto;display:block;margin-top:6px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--sans);font-size:13px;color:var(--ink2);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.readout{font-family:var(--sans);font-size:14px;color:var(--ink2);min-height:2.6em;margin-top:8px}
+.src{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:8px}
+
+/* chapter cards */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 10px}
+.card{display:block;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:12px 12px 14px;transition:border-color .2s}
+.card:hover{border-color:var(--orc)}
+.card svg{width:100%;height:70px;display:block;margin-bottom:8px}
+.card .n{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.card .t{font-family:var(--sans);font-size:14.5px;line-height:1.35;margin-top:3px}
+
+/* layout */
+.main{display:grid;grid-template-columns:200px 1fr;gap:48px;margin-top:30px}
+nav.rail{position:sticky;top:24px;align-self:start;font-family:var(--sans);font-size:13.5px}
+nav.rail a{display:block;color:var(--muted);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid transparent}
+nav.rail a.on{color:var(--ink);border-left-color:var(--orc)}
+.topbar{display:none}
+h2{font-family:var(--serif);font-weight:500;font-size:31px;line-height:1.2;margin:66px 0 14px;letter-spacing:-.005em}
+h3{font-family:var(--sans);font-weight:600;font-size:16px;margin:28px 0 6px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--orc);margin-top:70px}
+.eyebrow + h2{margin-top:8px}
+p{margin:0 0 16px}
+.tldr{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--orc);border-radius:4px;padding:18px 22px;margin:8px 0 26px}
+.tldr h2{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;color:var(--orc);font-weight:400}
+.tldr ul{margin:0;padding-left:20px}
+.tldr li{margin:6px 0}
+.abs b{font-family:var(--sans);font-weight:600;font-size:16px}
+.defs{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:8px 20px;margin:20px 0}
+.defs dl{margin:0;display:grid;grid-template-columns:34px 1fr;column-gap:12px}
+.defs dt{grid-column:1/3;font-family:var(--sans);font-weight:600;font-size:15.5px;margin-top:12px;display:flex;align-items:center;gap:10px}
+.defs dt svg{width:26px;height:18px;flex:none}
+.defs dd{grid-column:2/3;margin:2px 0 10px;font-size:17px;color:var(--ink2)}
+figure{margin:22px 0 30px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:16px 18px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-family:var(--sans);font-size:14px;color:var(--ink2);margin-top:10px;line-height:1.5}
+figcaption b{color:var(--ink)}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.ctl{font-family:var(--sans);font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+input[type=range]{accent-color:var(--orc);width:220px}
+.note{font-family:var(--sans);font-size:14px;color:var(--ink2);min-height:1.5em;margin-top:6px}
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.scope div{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:14px 18px}
+.scope h3{margin-top:0}
+.scope ul{margin:0;padding-left:18px;font-size:17px}
+pre{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:14px;font-family:var(--mono);font-size:12.5px;overflow-x:auto;white-space:pre}
+footer{margin:70px 0 40px;padding-top:20px;border-top:1px solid var(--rule);font-family:var(--sans);font-size:13.5px;color:var(--muted)}
+footer p{margin:0 0 6px}
+.tip{position:fixed;pointer-events:none;background:var(--paper);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:6px 9px;font-family:var(--sans);font-size:13px;box-shadow:var(--shadow);opacity:0;transition:opacity .12s;z-index:60;max-width:260px}
+svg text{font-family:var(--sans)}
+.ax{stroke:var(--rule);stroke-width:1}
+.axt{fill:var(--muted);font-size:11px}
+@media (max-width:980px){
+  .main{grid-template-columns:1fr}
+  nav.rail{display:none}
+  .topbar{display:flex;gap:16px;overflow-x:auto;position:sticky;top:0;z-index:20;background:var(--glass);border-bottom:1px solid var(--rule);padding:10px 16px;font-family:var(--sans);font-size:13.5px;white-space:nowrap}
+  .topbar a{color:var(--muted);text-decoration:none}
+  .topbar a.on{color:var(--ink)}
+  .cards{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:17.5px}
+  .wrap{padding:0 16px}
+  header.top{padding:40px 0 26px}
+  .slidebox{grid-template-columns:1fr}
+  .frost{border-right:none;border-bottom:1px solid var(--rule);padding:10px 14px}
+  .frost b{display:inline;margin-right:8px}
+  .stage{padding:14px 12px}
+  .scope{grid-template-columns:1fr}
+  h2{font-size:26px}
+  .stand{font-size:19.5px}
+}
+</style>
+</head>
+<body>
+<button id="themeTg" type="button" aria-label="Switch colour theme">Theme</button>
+<script type="application/json" id="data">{"models":["MedSAM","SegFormer","SAM","MedSAM+UNet","UNet","UNet-ResNet34","DeepLabV3+","Lightweight UNet","FCN","SegNet"],"family":{"MedSAM":"Foundation","SegFormer":"Transformer","SAM":"Foundation","MedSAM+UNet":"Foundation","UNet":"CNN","UNet-ResNet34":"CNN","DeepLabV3+":"CNN","Lightweight UNet":"CNN","FCN":"Classical","SegNet":"Classical"},"loocv":{"MedSAM":[0.694,0.063,0.592,0.058],"SegFormer":[0.576,0.088,0.474,0.074],"SAM":[0.496,0.047,0.412,0.035],"MedSAM+UNet":[0.479,0.072,0.402,0.068],"UNet":[0.392,0.146,0.319,0.122],"UNet-ResNet34":[0.373,0.145,0.297,0.132],"DeepLabV3+":[0.304,0.177,0.24,0.15],"Lightweight UNet":[0.249,0.118,0.2,0.102],"FCN":[0.121,0.071,0.075,0.055],"SegNet":[0.105,0.111,0.076,0.088]},"kfold":{"MedSAM":[0.643,0.036,0.542,0.032],"SegFormer":[0.501,0.044,0.415,0.04],"MedSAM+UNet":[0.461,0.07,0.388,0.072],"SAM":[0.425,0.025,0.351,0.029],"UNet":[0.369,0.033,0.289,0.034],"DeepLabV3+":[0.335,0.03,0.268,0.033],"UNet-ResNet34":[0.268,0.041,0.201,0.041],"Lightweight UNet":[0.213,0.176,0.169,0.149],"SegNet":[0.098,0.085,0.069,0.069],"FCN":[0.068,0.012,0.036,0.006]},"ci":{"MedSAM":[[0.651,0.734],[0.6,0.688]],"SegFormer":[[0.517,0.633],[0.447,0.554]],"SAM":[[0.466,0.527],[0.403,0.459]],"MedSAM+UNet":[[0.431,0.525],[0.395,0.559]],"UNet":[[0.285,0.47],[0.345,0.416]],"UNet-ResNet34":[[0.274,0.464],[0.217,0.317]],"DeepLabV3+":[[0.188,0.42],[0.312,0.378]],"Lightweight UNet":[[0.17,0.324],[0.019,0.445]],"FCN":[[0.08,0.171],[0.054,0.083]],"SegNet":[[0.038,0.183],[0.036,0.218]]},"cohen":{"MedSAM":[1.55,3.56,3.19,2.69,2.87,2.94,4.72,8.54,6.52],"SegFormer":[1.13,1.21,1.53,1.69,1.95,3.15,5.69,4.7],"SAM":[0.29,0.97,1.14,1.49,2.76,6.2,4.57],"MedSAM+UNet":[0.76,0.92,1.3,2.36,5.0,3.99],"UNet":[0.13,0.54,1.08,2.35,2.21],"UNet-ResNet34":[0.43,0.94,2.2,2.07],"DeepLabV3+":[0.36,1.35,1.34],"Lightweight UNet":[1.31,1.26],"FCN":[0.17]},"ranks":{"MedSAM":[1.0,0.0,0.0,100.0,100.0,1.0,0.0,0.0,100.0,100.0],"SegFormer":[2.33,1.0,0.5,0.0,66.7,2.33,1.0,0.58,0.0,66.7],"SAM":[3.78,4.0,1.3,0.0,11.1,4.33,1.0,0.58,0.0,0.0],"MedSAM+UNet":[4.67,5.0,1.5,0.0,11.1,3.67,4.0,2.08,0.0,33.3],"UNet":[5.78,7.0,2.11,0.0,0.0,4.67,3.0,1.53,0.0,0.0],"UNet-ResNet34":[5.78,7.0,2.44,0.0,11.1,7.67,1.0,0.58,0.0,0.0],"DeepLabV3+":[6.56,6.0,2.24,0.0,0.0,6.0,4.0,2.0,0.0,0.0],"Lightweight UNet":[7.44,4.0,1.42,0.0,0.0,6.33,2.0,1.15,0.0,0.0],"FCN":[8.67,3.0,1.0,0.0,0.0,9.0,0.0,0.0,0.0,0.0],"SegNet":[9.0,3.0,1.12,0.0,0.0,10.0,0.0,0.0,0.0,0.0]},"ds2N":[9,25,50,100,150],"ds2":{"SegFormer":[0.717,0.657,0.847,0.896,0.906],"MedSAM":[0.779,0.839,0.846,0.857,0.87],"MedSAM+UNet":[0.812,0.833,0.839,0.859,0.864],"SAM":[0.821,0.792,0.836,0.859,0.866],"UNet":[0.84,0.82,0.837,0.889,0.886],"UNet-ResNet34":[0.769,0.862,0.865,0.876,0.892],"DeepLabV3+":[0.843,0.838,0.852,0.891,0.896],"Lightweight UNet":[0.605,0.81,0.787,0.879,0.904],"FCN":[0.45,0.549,0.562,0.726,0.828],"SegNet":[0.051,0.067,0.618,0.634,0.586]},"shift":{"SegFormer":[27.2,18.4,8.3,6.6,0.502],"SAM":[47.9,25.1,12.5,7.7,0.546],"MedSAM":[33.1,21.2,9.9,7.8,0.488],"MedSAM+UNet":[38.9,22.0,10.9,7.6,0.477],"UNet":[56.4,24.9,16.8,18.1,0.356],"Lightweight UNet":[56.7,16.6,19.9,6.8,0.333],"UNet-ResNet34":[88.7,11.4,32.6,5.7,0.188],"DeepLabV3+":[106.9,13.8,54.0,12.5,0.131],"SegNet":[111.7,8.8,50.1,7.4,0.052],"FCN":[113.4,8.0,53.0,6.4,0.071]},"eff":{"SegFormer":[3.7,0.49,0.07,9.3,108,99,0.576],"Lightweight UNet":[7.8,1.02,0.08,2.7,365,86,0.249],"UNet-ResNet34":[24.4,3.2,0.13,5.7,175,104,0.373],"DeepLabV3+":[26.7,3.5,0.14,7.6,132,96,0.304],"SegNet":[29.5,3.86,0.2,5.7,174,71,0.105],"UNet":[31.4,4.11,0.25,7.7,131,145,0.392],"MedSAM":[95.8,12.56,2.71,121.8,8.2,259,0.694],"MedSAM+UNet":[95.7,12.55,2.71,137.3,7.3,173,0.479],"SAM":[97.3,12.75,2.72,120.9,8.3,311,0.496],"FCN":[134.4,17.61,5.4,14.3,70,90,0.121]}}</script>
+
+<div class="wrap">
+<header class="top">
+  <div class="kicker">Biomedical Signal Processing and Control · 2026</div>
+  <h1>Challenges in Deep Learning-Based Small Organ Segmentation</h1>
+  <p class="sub">A benchmarking perspective for medical research with limited datasets</p>
+  <p class="stand">With nine images, a leaderboard of ten segmentation models gives one firm answer at the top and noise below it.</p>
+  <div class="byline">Phongsakon Mark Konrad, Andrei-Alexandru Popa, Yaser Sabzehmeidani, Liang Zhong, Madhulika Tripathy, Andrei Constantinescu, Elisa A. Liehn, Serkan Ayvaz
+    <div class="aff">University of Southern Denmark · Duke-NUS · National Heart Center Singapore · Carol Davila University of Medicine and Pharmacy Bucharest. Published August 2026.</div>
+  </div>
+  <div class="links"><a href="https://www.sciencedirect.com/science/article/pii/S1746809426017805" rel="noopener">Journal ↗</a><span class="sep">·</span><a href="https://arxiv.org/pdf/2509.05892" rel="noopener">PDF</a><span class="sep">·</span><a href="index.md">Markdown</a><span class="sep">·</span><a href="https://arxiv.org/abs/2509.05892" rel="noopener">arXiv</a><span class="sep">·</span><a href="#cite">Cite this article</a></div>
+</header>
+</div>
+
+<section class="slide" aria-label="Interactive leaderboard">
+ <div class="wrap">
+  <div class="slidebox">
+   <div class="frost" id="frost"><b>Slide</b><span id="frostTxt"></span></div>
+   <div class="stage">
+    <p class="instr">Turn the lens. The same ten models are measured under each protocol, and the board reorders.</p>
+    <div class="lensrow">Nine mouse carotid images</div>
+    <div class="lenses" id="lensA"></div>
+    <div class="lensrow">Second dataset, trained on it</div>
+    <div class="lenses" id="lensB"></div>
+    <div class="lensrow">Second dataset, models trained on the nine images</div>
+    <div class="lenses" id="lensC"></div>
+    <svg id="board" viewBox="0 0 860 330" role="img" aria-label="Ranked bar chart of macro Dice for ten segmentation models under the selected protocol"></svg>
+    <div class="legend"><span><i style="background:var(--fnd)"></i>Foundation model</span><span><i style="background:var(--tfm)"></i>Transformer</span><span><i style="background:var(--cnn)"></i>Modern CNN</span><span><i style="background:var(--cls)"></i>Classical CNN</span></div>
+    <div class="readout" id="readout" aria-live="polite"></div>
+    <div class="src">Values are the paper's reported tables. Whiskers show the bootstrap 95% confidence interval where the paper reports one.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<div class="wrap">
+<div class="cards" id="chapter-cards">
+  <a class="card" href="#ch1"><svg id="th1" viewBox="0 0 200 70" aria-hidden="true"></svg><div class="n">Chapter 1</div><div class="t">Only first place survives the intervals</div></a>
+  <a class="card" href="#ch2"><svg id="th2" viewBox="0 0 200 70" aria-hidden="true"></svg><div class="n">Chapter 2</div><div class="t">Ranks swing from fold to fold</div></a>
+  <a class="card" href="#ch3"><svg id="th3" viewBox="0 0 200 70" aria-hidden="true"></svg><div class="n">Chapter 3</div><div class="t">A second dataset writes a different board</div></a>
+  <a class="card" href="#ch4"><svg id="th4" viewBox="0 0 200 70" aria-hidden="true"></svg><div class="n">Chapter 4</div><div class="t">Small choices move scores as much as architecture</div></a>
+</div>
+
+<div class="topbar" id="topbar"><a href="#tldr">TL;DR</a><a href="#defs">Terms</a><a href="#ch1">Intervals</a><a href="#ch2">Folds</a><a href="#ch3">Second dataset</a><a href="#ch4">Choices</a><a href="#scope">Scope</a><a href="#cite">Cite</a></div>
+
+<div class="main">
+<nav class="rail" id="rail" aria-label="Contents"><a href="#tldr">TL;DR</a><a href="#abstract">Abstract</a><a href="#defs">Terms</a><a href="#ch1">1 · Intervals</a><a href="#ch2">2 · Folds</a><a href="#ch3">3 · Second dataset</a><a href="#ch4">4 · Choices</a><a href="#scope">Scope</a><a href="#cite">Cite</a></nav>
+<article class="col">
+
+<div class="tldr" id="tldr"><h2>TL;DR</h2><ul>
+<li>We tuned ten segmentation models with 100 Bayesian trials each and scored them on nine histology images of injured mouse carotid arteries.</li>
+<li>MedSAM leads under leave-one-out validation with a macro Dice of 0.694, and its bootstrap interval [0.651, 0.734] clears every other model.</li>
+<li>Below first place the intervals chain into each other. SegFormer at [0.517, 0.633] overlaps SAM at [0.466, 0.527], and both overlap models further down.</li>
+<li>During tuning UNet had the best validation Dice, 0.630 against 0.569 for MedSAM, and the order reversed on held-out data.</li>
+<li>Trained on a second dataset of 153 images, the board changes. At nine training images DeepLabV3+ (0.843) and UNet (0.840) lead, and ranks settle only from 50 images on.</li>
+</ul></div>
+
+<h2 id="abstract">Abstract</h2>
+<div class="abs">
+<p><b>First,</b> we benchmark ten architectures on a four-class task with nine images. Classical networks, modern CNNs, one vision transformer and three foundation models each get 100 trials of Bayesian hyperparameter search, 1000 runs in all. MedSAM reaches 0.694 macro Dice under leave-one-out validation and 0.643 under 3-fold validation.</p>
+<p><b>Second,</b> we ask how much of that order is real. Bootstrap intervals separate MedSAM from the rest, but models ranked 2nd to 5th overlap in a chain. Under leave-one-out validation UNet-ResNet34 and DeepLabV3+ swing by up to 7 rank positions between folds, and the 3-fold Nemenyi test (critical difference 7.82) cannot tell the top models apart.</p>
+<p><b>Finally,</b> we test the order on an independent dataset of 153 images. Trained on it at nine images, DeepLabV3+ and UNet lead and the foundation models fall to 3rd to 5th. Across the sizes 9, 25, 50, 100 and 150, rankings stay volatile up to 25 images and stabilise from 50.</p>
+</div>
+<p>What would have refuted us? Intervals that kept all ten models apart, ranks that held from fold to fold, or a second dataset that repeated the first board. We tested all three. The first held only for MedSAM, and the other two failed.</p>
+
+<h2 id="defs">Terms we use</h2>
+<div class="defs"><dl>
+<dt><svg viewBox="0 0 26 18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="none" stroke="currentColor"/><circle cx="17" cy="9" r="7" fill="var(--orc-soft)" stroke="var(--orc)"/></svg>Macro Dice</dt>
+<dd>The overlap between predicted and expert masks, from 0 to 1, averaged over lumen, neointima and media with the background left out.</dd>
+<dt><svg viewBox="0 0 26 18" aria-hidden="true"><g fill="currentColor"><rect x="1" y="5" width="2.4" height="8"/><rect x="4" y="5" width="2.4" height="8"/><rect x="7" y="5" width="2.4" height="8" fill="var(--orc)"/><rect x="10" y="5" width="2.4" height="8"/><rect x="13" y="5" width="2.4" height="8"/><rect x="16" y="5" width="2.4" height="8"/><rect x="19" y="5" width="2.4" height="8"/><rect x="22" y="5" width="2.4" height="8"/></g></svg>Leave-one-out validation</dt>
+<dd>Train on eight images and test on the ninth, nine times over. Nearly unbiased, with high variance.</dd>
+<dt><svg viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="5" width="7" height="8" fill="currentColor"/><rect x="9.5" y="5" width="7" height="8" fill="var(--orc)"/><rect x="18" y="5" width="7" height="8" fill="currentColor"/></svg>3-fold validation</dt>
+<dd>Split the nine images into three groups and test on each in turn. Lower variance, more bias.</dd>
+<dt><svg viewBox="0 0 26 18" aria-hidden="true"><line x1="3" y1="9" x2="23" y2="9" stroke="currentColor"/><line x1="3" y1="5" x2="3" y2="13" stroke="currentColor"/><line x1="23" y1="5" x2="23" y2="13" stroke="currentColor"/><circle cx="13" cy="9" r="3" fill="var(--orc)"/></svg>Bootstrap interval</dt>
+<dd>A 95% range for a model's mean score, from resampling its fold scores with replacement 10,000 times.</dd>
+<dt><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M1 15 Q7 2 13 15" fill="none" stroke="currentColor"/><path d="M11 15 Q17 2 25 15" fill="none" stroke="var(--orc)"/></svg>Cohen's d</dt>
+<dd>The gap between two models' mean scores in units of their spread. Values above 0.8 count as large.</dd>
+<dt><svg viewBox="0 0 26 18" aria-hidden="true"><circle cx="7" cy="9" r="4" fill="currentColor"/><circle cx="19" cy="9" r="4" fill="none" stroke="var(--orc)" stroke-dasharray="2 1.5"/></svg>Second dataset</dt>
+<dd>153 images from a separate cohort of mice, photographed under other conditions. We use it for distribution shift and for training at larger sizes.</dd>
+<dt><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M2 14 C8 4 16 4 24 12" fill="none" stroke="currentColor"/><path d="M2 12 C9 7 15 9 24 6" fill="none" stroke="var(--orc)"/><line x1="18" y1="5" x2="18" y2="11" stroke="var(--orc)"/></svg>HD95</dt>
+<dd>The 95th percentile distance in pixels between predicted and true tissue boundaries. Lower is better.</dd>
+</dl></div>
+
+<div class="eyebrow">Chapter 1</div>
+<h2 id="ch1">Only first place survives the intervals</h2>
+<p>A leaderboard prints one number per model. On nine images each number sits on top of a wide spread, and the spread decides what the order means.</p>
+<p>We resampled every model's fold scores 10,000 times. Under leave-one-out validation the interval for MedSAM, [0.651, 0.734], sits clear of every other model. That part of the board is real. Below it the intervals link up. SegFormer overlaps SAM and MedSAM+UNet, and those two overlap UNet at [0.285, 0.470]. So the order from 2nd to 5th cannot be read with confidence.</p>
+<p>Pick a model below to see which others its interval touches. Switch to 3-fold validation and the picture shifts again.</p>
+<figure>
+ <div class="seg" id="ciSeg"><button type="button" data-p="0" aria-pressed="true">Leave-one-out</button><button type="button" data-p="1" aria-pressed="false">3-fold</button></div>
+ <svg id="ciFig" viewBox="0 0 680 330" role="img" aria-label="Bootstrap 95 percent intervals for the ten models"></svg>
+ <div class="note" id="ciNote" aria-live="polite"></div>
+ <figcaption><b>Bootstrap 95% intervals for macro Dice.</b> Dots are means and bars the intervals, as reported in the paper. Select a model to mark every model whose interval overlaps it.</figcaption>
+</figure>
+<p>Effect sizes tell the same story from another side. Gaps between families are large. MedSAM against FCN gives d = 8.54. Gaps inside a family are small, UNet against UNet-ResNet34 gives d = 0.13. Hover the matrix to read any pair.</p>
+<figure>
+ <svg id="dFig" viewBox="0 0 680 420" role="img" aria-label="Matrix of pairwise Cohen's d values for leave-one-out macro Dice"></svg>
+ <figcaption><b>Pairwise Cohen's d, leave-one-out macro Dice.</b> Each cell is the row model against the column model. Darker means a larger gap. Outlined cells pass the 0.8 threshold for a large effect.</figcaption>
+</figure>
+
+<div class="eyebrow">Chapter 2</div>
+<h2 id="ch2">Ranks swing from fold to fold</h2>
+<p>A mean rank hides how a model got there. We ranked all ten models on every fold and kept the mean, the spread and the range.</p>
+<p>MedSAM ranks first on all nine leave-one-out folds and all three 3-fold folds. Nobody else is that steady. UNet-ResNet34 has a rank standard deviation of 2.44 and a range of 7 positions under leave-one-out validation. Under 3-fold validation it barely moves, with a standard deviation of 0.58, and its mean rank drops from 5.78 to 7.67. The protocol changes both where a model lands and how sure we can be of it.</p>
+<p>Ten models scored on nine images give the Friedman test enough to find that some ranks differ, with p &lt; 0.001 under leave-one-out validation and p = 0.003 under 3-fold validation. Three folds are too few to say which, and the critical difference of 7.82 joins all the top models.</p>
+<figure>
+ <div class="seg" id="rkSeg"><button type="button" data-p="0" aria-pressed="true">Leave-one-out</button><button type="button" data-p="1" aria-pressed="false">3-fold</button></div>
+ <svg id="rkFig" viewBox="0 0 680 330" role="img" aria-label="Mean rank and rank spread for each model"></svg>
+ <div class="note" id="rkNote" aria-live="polite"></div>
+ <figcaption><b>Mean rank across folds, plus or minus one standard deviation.</b> Rank 1 is best. The number on the right is the rank range, the gap between a model's best and worst fold. Values from the paper's rank instability table.</figcaption>
+</figure>
+
+<div class="eyebrow">Chapter 3</div>
+<h2 id="ch3">A second dataset writes a different board</h2>
+<p>If the order on nine images reflected the architectures, a second dataset should repeat it. We collected 153 images from a separate cohort, held three out as a fixed test set, and trained every model on nested subsets of 9, 25, 50, 100 and 150 images with the hyperparameters tuned on the first dataset.</p>
+<p>At nine images DeepLabV3+ leads with 0.843 and UNet follows with 0.840. On the first dataset these two placed 7th and 5th. The three foundation models, which held the top of the first board, rank 3rd to 5th. SegFormer starts 7th at 0.717 and ends 1st at 0.906 with 150 images. Ranks stay volatile up to 25 images and settle from 50.</p>
+<p>Drag the slider to change the training size and watch the order.</p>
+<figure>
+ <div class="ctl"><label for="nSl">Training images</label><input type="range" id="nSl" min="0" max="4" step="1" value="0" aria-valuetext="9 images"><span id="nOut" style="font-family:var(--mono)">N = 9</span></div>
+ <svg id="lcFig" viewBox="0 0 680 360" role="img" aria-label="Macro Dice against training size on the second dataset for ten models"></svg>
+ <div class="note" id="lcNote" aria-live="polite"></div>
+ <figcaption><b>Trained on the second dataset.</b> Mean macro Dice on the three held-out images for each training size. The ranked list on the right follows the slider. Hover a line to isolate a model.</figcaption>
+</figure>
+<p>We also ran the models tuned on the nine images directly on all 153 new images, under distribution shift. Here the order splits by metric. SAM leads on Dice with 0.546. SegFormer leads on boundary error, with an HD95 of 27.2 pixels. FCN and SegNet fail, with boundary errors above 110 pixels.</p>
+<figure>
+ <svg id="shFig" viewBox="0 0 680 330" role="img" aria-label="Dice against HD95 boundary error under distribution shift"></svg>
+ <figcaption><b>Models from the nine images, scored on the second dataset.</b> Up is better Dice and left is a smaller boundary error. The two leaders differ.</figcaption>
+</figure>
+
+<div class="eyebrow">Chapter 4</div>
+<h2 id="ch4">Small choices move scores as much as architecture</h2>
+<p>Data splits are one source of variance. We ran more than 190 ablations to find the others, covering augmentation, input resolution, random seeds and hyperparameters.</p>
+<p>Augmentation alone can matter more than the network. Lightweight U-Net ranged from 0.04 to 0.44 Dice across presets. UNet rose from 0.41 without augmentation to 0.66 with strong geometric transforms. MedSAM barely noticed and stayed between 0.67 and 0.70 across all 10 presets. Five random seeds moved scores by a standard deviation of 0.03 to 0.15 Dice, least for the foundation models.</p>
+<p>Size buys accuracy at a price. MedSAM has 95.8 million parameters and leads on the nine images. SegFormer has 3.7 million and comes second, at 9.3 ms per image against 121.8 ms. Hover a point to compare.</p>
+<figure>
+ <svg id="efFig" viewBox="0 0 680 340" role="img" aria-label="Leave-one-out macro Dice against parameter count"></svg>
+ <figcaption><b>Accuracy against size.</b> Leave-one-out macro Dice against parameters in millions, on a log scale, as reported in the paper's efficiency table.</figcaption>
+</figure>
+<p>Our recommendation follows from these four chapters. With nine images, report bootstrap intervals and results under more than one protocol. Expect stable rankings only from 50 to 100 samples, and test on data from another source before choosing a model.</p>
+
+<h2 id="scope">Scope</h2>
+<div class="scope">
+ <div><h3>It shows</h3><ul>
+ <li>On nine images of one tissue, ten tuned models give one statistically separable leader and an unreliable order below it.</li>
+ <li>Rankings change with the validation protocol, with the dataset and with the training size.</li>
+ <li>Augmentation and seeds add variance on the scale of the gaps between architectures.</li>
+ </ul></div>
+ <div><h3>It does not show</h3><ul>
+ <li>That MedSAM or any other model is best for histology in general.</li>
+ <li>Effects across random initialisations for the main runs, which used one seed.</li>
+ <li>Second-dataset rankings free of tuning effects, since those runs reused hyperparameters from the first dataset.</li>
+ <li>A measured inter-annotator agreement. Two experts annotated by a shared protocol, without an agreement score.</li>
+ </ul></div>
+</div>
+<p style="margin-top:18px">Next we want the same test on other organs and stains, and on more seeds, to see where the threshold of 50 images moves.</p>
+
+<h2 id="cite">Cite this article</h2>
+<pre>@article{konrad2026smallorgan,
+  title   = {Challenges in Deep Learning-Based Small Organ Segmentation:
+             A Benchmarking Perspective for Medical Research with Limited Datasets},
+  author  = {Konrad, Phongsakon Mark and Popa, Andrei-Alexandru and
+             Sabzehmeidani, Yaser and Zhong, Liang and Tripathy, Madhulika and
+             Constantinescu, Andrei and Liehn, Elisa A. and Ayvaz, Serkan},
+  journal = {Biomedical Signal Processing and Control},
+  volume  = {128},
+  pages   = {111226},
+  year    = {2026},
+  doi     = {10.1016/j.bspc.2026.111226}
+}</pre>
+
+<footer>
+<p>Every plotted value is copied from the tables of the published paper. Nothing on this page is simulated.</p>
+<p>A project of the <a href="https://aiml-sdu.github.io">Applied and Interpretable Machine Learning Research Group</a> at the University of Southern Denmark.</p>
+</footer>
+</article>
+</div>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+const D=JSON.parse(document.getElementById('data').textContent);
+const M=D.models, FAM=D.family;
+const NS='http://www.w3.org/2000/svg';
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const famVar={Foundation:'--fnd',Transformer:'--tfm',CNN:'--cnn',Classical:'--cls'};
+const col=m=>css(famVar[FAM[m]]);
+const famName={Foundation:'foundation model',Transformer:'transformer',CNN:'modern CNN',Classical:'classical CNN'};
+const short={"MedSAM+UNet":"MedSAM+UNet","Lightweight UNet":"LW-UNet","UNet-ResNet34":"UNet-R34","DeepLabV3+":"DeepLabV3+"};
+const sn=m=>short[m]||m;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function clear(s){while(s.firstChild)s.removeChild(s.firstChild)}
+const tip=document.getElementById('tip');
+function showTip(e,h){tip.innerHTML=h;tip.style.opacity=1;const x=Math.min(e.clientX+14,innerWidth-270);tip.style.left=x+'px';tip.style.top=(e.clientY+14)+'px'}
+function hideTip(){tip.style.opacity=0}
+const f3=v=>v.toFixed(3);
+
+/* theme */
+const tg=document.getElementById('themeTg');
+function curDark(){const t=document.documentElement.getAttribute('data-theme');if(t)return t==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+function label(){tg.textContent=curDark()?'Light mode':'Dark mode'}
+tg.addEventListener('click',()=>{const n=curDark()?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('page-theme',n)}catch(e){}label();redraw()});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{label();redraw()});
+label();
+
+/* hero lenses */
+const lenses=[
+ {g:'lensA',k:'loocv',t:'Leave-one-out',f:'DS1\nN = 9\nleave-one-out\n9 folds',get:m=>D.loocv[m][0],ci:m=>D.ci[m][0],what:'leave-one-out validation on the nine images'},
+ {g:'lensA',k:'kfold',t:'3-fold',f:'DS1\nN = 9\n3-fold\n3 folds',get:m=>D.kfold[m][0],ci:m=>D.ci[m][1],what:'3-fold validation on the nine images'}
+];
+D.ds2N.forEach((n,i)=>lenses.push({g:'lensB',k:'ds2'+n,t:'N = '+n,f:'DS2\ntrained on '+n+'\ntested on 3\nheld-out images',get:m=>D.ds2[m][i],what:'training on '+n+' images of the second dataset'}));
+lenses.push({g:'lensC',k:'shift',t:'Under shift',f:'DS1 models\non DS2\nN = 153\nshift',get:m=>D.shift[m][4],what:'models tuned on the nine images, scored on all 153 new images'});
+let cur=0, prevRank={};
+lenses.forEach((L,i)=>{const b=document.createElement('button');b.type='button';b.textContent=L.t;b.setAttribute('aria-pressed',i===0);b.onclick=()=>{cur=i;document.querySelectorAll('.lenses button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i));drawBoard(true)};document.getElementById(L.g).appendChild(b)});
+const board=document.getElementById('board');
+function drawBoard(anim){
+ const L=lenses[cur];
+ const order=M.slice().sort((a,b)=>L.get(b)-L.get(a));
+ document.getElementById('frostTxt').innerHTML=L.f.replace(/\n/g,'<br>');
+ clear(board);
+ const W=860,x0=150,x1=800,rowH=30,top=14;
+ const sx=v=>x0+(x1-x0)*v;
+ [0,0.25,0.5,0.75,1].forEach(v=>{el('line',{x1:sx(v),x2:sx(v),y1:top-4,y2:top+rowH*10,class:'ax','stroke-dasharray':v?'2 4':''},board);const t=el('text',{x:sx(v),y:top+rowH*10+16,'text-anchor':'middle',class:'axt'},board);t.textContent=v.toFixed(2)});
+ const tx=el('text',{x:x1,y:top+rowH*10+16,'text-anchor':'end',class:'axt',dx:44},board);tx.textContent='Dice';
+ order.forEach((m,r)=>{
+  const y=top+r*rowH, v=L.get(m), c=col(m);
+  const g=el('g',{transform:'translate(0,'+((anim&&!reduce&&prevRank[m]!==undefined)?(top+prevRank[m]*rowH-y):0)+')'},board);
+  g.style.transition='transform .55s cubic-bezier(.2,.7,.2,1)';
+  const rk=el('text',{x:8,y:y+19,class:'axt','font-family':'Space Mono'},g);rk.textContent=String(r+1).padStart(2,'0');
+  const nm=el('text',{x:34,y:y+19,fill:css('--ink'),'font-size':'13.5'},g);nm.textContent=m;
+  el('rect',{x:x0,y:y+7,width:Math.max(2,sx(v)-x0),height:15,rx:2,fill:c,opacity:.88},g);
+  if(L.ci){const ci=L.ci(m);el('line',{x1:sx(ci[0]),x2:sx(ci[1]),y1:y+14.5,y2:y+14.5,stroke:css('--ink'),'stroke-width':1.4},g);[ci[0],ci[1]].forEach(q=>el('line',{x1:sx(q),x2:sx(q),y1:y+10,y2:y+19,stroke:css('--ink'),'stroke-width':1.4},g))}
+  const vt=el('text',{x:Math.min(sx(L.ci?L.ci(m)[1]:v)+8,x1+10),y:y+19,fill:css('--ink2'),'font-size':'12','font-family':'Space Mono'},g);vt.textContent=f3(v);
+  const hit=el('rect',{x:0,y:y,width:W,height:rowH,fill:'transparent'},g);
+  const msg=()=>{let s='<b>'+m+'</b>, a '+famName[FAM[m]]+'. Rank '+(r+1)+' of 10 with macro Dice '+f3(v)+' under '+L.what+'.';if(L.ci){const ci=L.ci(m);s+=' Interval ['+f3(ci[0])+', '+f3(ci[1])+'].'}if(L.k==='shift')s+=' HD95 '+D.shift[m][0]+' px.';return s};
+  hit.addEventListener('mousemove',e=>{showTip(e,msg());document.getElementById('readout').innerHTML=msg()});
+  hit.addEventListener('mouseleave',hideTip);
+  hit.addEventListener('click',()=>{document.getElementById('readout').innerHTML=msg()});
+  if(anim&&!reduce)requestAnimationFrame(()=>requestAnimationFrame(()=>g.setAttribute('transform','translate(0,0)')));
+ });
+ const lead=order[0];
+ document.getElementById('readout').innerHTML='Under '+L.what+', <b>'+lead+'</b> ranks first with '+f3(L.get(lead))+'. Point at any bar to read it.';
+ prevRank={};order.forEach((m,r)=>prevRank[m]=r);
+}
+
+/* chapter 1 intervals */
+let ciP=0, ciSel='MedSAM';
+const ciFig=document.getElementById('ciFig');
+function drawCI(){
+ clear(ciFig);const x0=130,x1=650,top=10,rh=30;const sx=v=>x0+(x1-x0)*v/0.8;
+ [0,0.2,0.4,0.6,0.8].forEach(v=>{el('line',{x1:sx(v),x2:sx(v),y1:top,y2:top+rh*10,class:'ax','stroke-dasharray':v?'2 4':''},ciFig);const t=el('text',{x:sx(v),y:top+rh*10+16,'text-anchor':'middle',class:'axt'},ciFig);t.textContent=v.toFixed(1)});
+ const mean=m=>ciP?D.kfold[m][0]:D.loocv[m][0];
+ const order=M.slice().sort((a,b)=>mean(b)-mean(a));
+ const s=D.ci[ciSel][ciP];const over=[];
+ order.forEach((m,r)=>{
+  const ci=D.ci[m][ciP], y=top+r*rh+15, ov=m!==ciSel&&ci[0]<=s[1]&&ci[1]>=s[0];
+  if(ov)over.push(m);
+  const on=m===ciSel, c=col(m);
+  if(on||ov)el('rect',{x:x0-4,y:y-11,width:x1-x0+8,height:22,rx:3,fill:css('--orc-soft')},ciFig);
+  const t=el('text',{x:x0-10,y:y+4,'text-anchor':'end',fill:css(on?'--ink':'--ink2'),'font-size':'13','font-weight':on?600:400},ciFig);t.textContent=m;
+  el('line',{x1:sx(ci[0]),x2:sx(ci[1]),y1:y,y2:y,stroke:c,'stroke-width':on?3:2,'stroke-linecap':'round'},ciFig);
+  el('circle',{cx:sx(mean(m)),cy:y,r:5,fill:c,stroke:css('--paper'),'stroke-width':2},ciFig);
+  const h=el('rect',{x:0,y:y-14,width:680,height:28,fill:'transparent',style:'cursor:pointer',tabindex:0,role:'button','aria-label':'Select '+m},ciFig);
+  h.addEventListener('click',()=>{ciSel=m;drawCI()});h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();ciSel=m;drawCI()}});
+  h.addEventListener('mousemove',e=>showTip(e,'<b>'+m+'</b><br>mean '+f3(mean(m))+'<br>interval ['+f3(ci[0])+', '+f3(ci[1])+']'));h.addEventListener('mouseleave',hideTip);
+ });
+ document.getElementById('ciNote').innerHTML='<b>'+ciSel+'</b> ['+f3(s[0])+', '+f3(s[1])+'] '+(over.length?'overlaps '+over.join(', ')+'.':'overlaps no other model.');
+}
+document.querySelectorAll('#ciSeg button').forEach(b=>b.onclick=()=>{ciP=+b.dataset.p;document.querySelectorAll('#ciSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));drawCI()});
+
+/* chapter 1 cohen d */
+const dFig=document.getElementById('dFig');
+function drawD(){
+ clear(dFig);const cols=M.slice(1), rows=M.slice(0,9);const x0=120,y0=60,cw=56,ch=36;
+ cols.forEach((c,j)=>{const t=el('text',{x:x0+j*cw+cw/2,y:y0-10,'text-anchor':'end',transform:'rotate(-35 '+(x0+j*cw+cw/2)+' '+(y0-10)+')',class:'axt','font-size':'11.5'},dFig);t.textContent=sn(c)});
+ const dark=curDark();
+ rows.forEach((r,i)=>{const t=el('text',{x:x0-8,y:y0+i*ch+ch/2+4,'text-anchor':'end',class:'axt','font-size':'11.5'},dFig);t.textContent=sn(r);
+  D.cohen[r].forEach((v,k)=>{const j=i+k;const a=Math.min(1,Math.log(1+v)/Math.log(1+8.54));
+   const x=x0+j*cw,y=y0+i*ch;
+   el('rect',{x:x+1,y:y+1,width:cw-2,height:ch-2,rx:2,fill:css('--fnd'),'fill-opacity':(0.08+0.85*a).toFixed(3),stroke:v>0.8?css('--ink'):'none','stroke-width':v>0.8?0.8:0},dFig);
+   const tt=el('text',{x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle','font-size':'11.5','font-family':'Space Mono',fill:(!dark&&a>0.55)?'#ffffff':css('--ink')},dFig);tt.textContent=v.toFixed(2);
+   const h=el('rect',{x:x,y:y,width:cw,height:ch,fill:'transparent'},dFig);
+   h.addEventListener('mousemove',e=>showTip(e,'<b>'+r+'</b> against <b>'+cols[j]+'</b><br>d = '+v.toFixed(2)+(v>0.8?', a large effect':'')));h.addEventListener('mouseleave',hideTip);
+  })});
+}
+
+/* chapter 2 ranks */
+let rkP=0;const rkFig=document.getElementById('rkFig');
+function drawRk(){
+ clear(rkFig);const x0=130,x1=600,top=12,rh=30;const sx=v=>x0+(x1-x0)*(v-1)/9;
+ for(let k=1;k<=10;k++){el('line',{x1:sx(k),x2:sx(k),y1:top,y2:top+rh*10,class:'ax','stroke-dasharray':k>1?'2 4':''},rkFig);const t=el('text',{x:sx(k),y:top+rh*10+16,'text-anchor':'middle',class:'axt'},rkFig);t.textContent=k}
+ const rg=el('text',{x:640,y:top-1,'text-anchor':'middle',class:'axt'},rkFig);rg.textContent='range';
+ const o=rkP*5;const order=M.slice().sort((a,b)=>D.ranks[a][o]-D.ranks[b][o]);
+ order.forEach((m,r)=>{const R=D.ranks[m];const mu=R[o],rng=R[o+1],sd=R[o+2];const y=top+r*rh+15,c=col(m);
+  const t=el('text',{x:x0-10,y:y+4,'text-anchor':'end',fill:css('--ink2'),'font-size':'13'},rkFig);t.textContent=m;
+  el('line',{x1:sx(Math.max(1,mu-sd)),x2:sx(Math.min(10,mu+sd)),y1:y,y2:y,stroke:c,'stroke-width':6,'stroke-linecap':'round',opacity:.35},rkFig);
+  el('circle',{cx:sx(mu),cy:y,r:5.5,fill:c},rkFig);
+  const rt=el('text',{x:640,y:y+4,'text-anchor':'middle','font-family':'Space Mono','font-size':'12',fill:css('--ink')},rkFig);rt.textContent=rng.toFixed(0);
+  const h=el('rect',{x:0,y:y-14,width:680,height:28,fill:'transparent'},rkFig);
+  const msg='<b>'+m+'</b>. Mean rank '+mu.toFixed(2)+', standard deviation '+sd.toFixed(2)+', range '+rng.toFixed(0)+'. In the top two on '+R[o+4].toFixed(1)+'% of folds.';
+  h.addEventListener('mousemove',e=>{showTip(e,msg);document.getElementById('rkNote').innerHTML=msg});h.addEventListener('mouseleave',hideTip);
+ });
+ document.getElementById('rkNote').innerHTML=rkP?'Three folds, so each spread rests on three ranks. Point at a row to read it.':'Nine folds. Point at a row to read it.';
+}
+document.querySelectorAll('#rkSeg button').forEach(b=>b.onclick=()=>{rkP=+b.dataset.p;document.querySelectorAll('#rkSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));drawRk()});
+
+/* chapter 3 learning curves */
+const lcFig=document.getElementById('lcFig'),nSl=document.getElementById('nSl');let lcHi=null;
+function drawLC(){
+ clear(lcFig);const i=+nSl.value,N=D.ds2N;const x0=46,x1=430,y0=330,y1=14;
+ const sx=k=>x0+(x1-x0)*k/4, sy=v=>y0-(y0-y1)*v;
+ [0,0.25,0.5,0.75,1].forEach(v=>{el('line',{x1:x0,x2:x1,y1:sy(v),y2:sy(v),class:'ax','stroke-dasharray':v?'2 4':''},lcFig);const t=el('text',{x:x0-6,y:sy(v)+4,'text-anchor':'end',class:'axt'},lcFig);t.textContent=v.toFixed(2)});
+ N.forEach((n,k)=>{const t=el('text',{x:sx(k),y:y0+18,'text-anchor':'middle',class:'axt'},lcFig);t.textContent=n});
+ el('line',{x1:sx(i),x2:sx(i),y1:y1,y2:y0,stroke:css('--orc'),'stroke-width':1.2},lcFig);
+ M.forEach(m=>{const v=D.ds2[m];const dim=lcHi&&lcHi!==m;
+  const p=el('polyline',{points:v.map((q,k)=>sx(k)+','+sy(q)).join(' '),fill:'none',stroke:col(m),'stroke-width':lcHi===m?3:2,opacity:dim?.15:.9},lcFig);
+  el('circle',{cx:sx(i),cy:sy(v[i]),r:4,fill:col(m),opacity:dim?.2:1},lcFig);
+  const h=el('polyline',{points:p.getAttribute('points'),fill:'none',stroke:'transparent','stroke-width':14},lcFig);
+  h.addEventListener('mouseenter',()=>{lcHi=m;drawLC()});h.addEventListener('mouseleave',()=>{lcHi=null;hideTip();drawLC()});
+  h.addEventListener('mousemove',e=>showTip(e,'<b>'+m+'</b><br>'+N.map((n,k)=>'N = '+n+': '+f3(v[k])).join('<br>')));
+ });
+ const order=M.slice().sort((a,b)=>D.ds2[b][i]-D.ds2[a][i]);
+ order.forEach((m,r)=>{const y=24+r*31;const on=lcHi===m;
+  const t=el('text',{x:470,y:y,'font-family':'Space Mono','font-size':'11.5',fill:css('--muted')},lcFig);t.textContent=String(r+1).padStart(2,'0');
+  el('rect',{x:496,y:y-9,width:9,height:9,rx:2,fill:col(m)},lcFig);
+  const n=el('text',{x:512,y:y,'font-size':'13',fill:css('--ink'),'font-weight':on?600:400},lcFig);n.textContent=sn(m);
+  const vv=el('text',{x:672,y:y,'text-anchor':'end','font-family':'Space Mono','font-size':'12',fill:css('--ink2')},lcFig);vv.textContent=f3(D.ds2[m][i]);
+ });
+ document.getElementById('nOut').textContent='N = '+N[i];nSl.setAttribute('aria-valuetext',N[i]+' images');
+ document.getElementById('lcNote').innerHTML='With '+N[i]+' training images, <b>'+order[0]+'</b> leads at '+f3(D.ds2[order[0]][i])+' and <b>'+order[9]+'</b> trails at '+f3(D.ds2[order[9]][i])+'.';
+}
+nSl.addEventListener('input',drawLC);
+
+/* chapter 3 shift */
+const shFig=document.getElementById('shFig');
+function drawSh(){
+ clear(shFig);const x0=60,x1=650,y0=290,y1=16;const sx=v=>x0+(x1-x0)*v/120, sy=v=>y0-(y0-y1)*v/0.6;
+ [0,30,60,90,120].forEach(v=>{el('line',{x1:sx(v),x2:sx(v),y1:y1,y2:y0,class:'ax','stroke-dasharray':v?'2 4':''},shFig);const t=el('text',{x:sx(v),y:y0+16,'text-anchor':'middle',class:'axt'},shFig);t.textContent=v});
+ [0,0.2,0.4,0.6].forEach(v=>{el('line',{x1:x0,x2:x1,y1:sy(v),y2:sy(v),class:'ax','stroke-dasharray':v?'2 4':''},shFig);const t=el('text',{x:x0-8,y:sy(v)+4,'text-anchor':'end',class:'axt'},shFig);t.textContent=v.toFixed(1)});
+ const a=el('text',{x:x1,y:y0+32,'text-anchor':'end',class:'axt'},shFig);a.textContent='HD95 in pixels';
+ const b=el('text',{x:x0,y:y1-4,class:'axt'},shFig);b.textContent='Dice';
+ const off={"MedSAM+UNet":[8,14],"MedSAM":[8,-8],"UNet":[8,-8],"Lightweight UNet":[8,14],"SegNet":[-8,-8],"FCN":[-8,16],"DeepLabV3+":[-8,-8],"UNet-ResNet34":[8,-8],"SAM":[8,-8],"SegFormer":[8,-8]};
+ M.forEach(m=>{const s=D.shift[m];const x=sx(s[0]),y=sy(s[4]);
+  el('circle',{cx:x,cy:y,r:7,fill:col(m),stroke:css('--paper'),'stroke-width':2},shFig);
+  const o=off[m];const t=el('text',{x:x+o[0],y:y+o[1],'text-anchor':o[0]<0?'end':'start','font-size':'12',fill:css('--ink2')},shFig);t.textContent=sn(m);
+  const h=el('circle',{cx:x,cy:y,r:14,fill:'transparent'},shFig);
+  h.addEventListener('mousemove',e=>showTip(e,'<b>'+m+'</b><br>Dice '+f3(s[4])+'<br>HD95 '+s[0]+' ± '+s[1]+' px<br>ASSD '+s[2]+' ± '+s[3]+' px'));h.addEventListener('mouseleave',hideTip);
+ });
+}
+
+/* chapter 4 efficiency */
+const efFig=document.getElementById('efFig');
+function drawEf(){
+ clear(efFig);const x0=60,x1=650,y0=300,y1=16;const lx=v=>Math.log10(v);const sx=v=>x0+(x1-x0)*(lx(v)-lx(2))/(lx(200)-lx(2)), sy=v=>y0-(y0-y1)*v/0.8;
+ [2,5,10,20,50,100,200].forEach(v=>{el('line',{x1:sx(v),x2:sx(v),y1:y1,y2:y0,class:'ax','stroke-dasharray':v>2?'2 4':''},efFig);const t=el('text',{x:sx(v),y:y0+16,'text-anchor':'middle',class:'axt'},efFig);t.textContent=v});
+ [0,0.2,0.4,0.6,0.8].forEach(v=>{el('line',{x1:x0,x2:x1,y1:sy(v),y2:sy(v),class:'ax','stroke-dasharray':v?'2 4':''},efFig);const t=el('text',{x:x0-8,y:sy(v)+4,'text-anchor':'end',class:'axt'},efFig);t.textContent=v.toFixed(1)});
+ const a=el('text',{x:x1,y:y0+32,'text-anchor':'end',class:'axt'},efFig);a.textContent='parameters, millions';
+ const b=el('text',{x:x0,y:y1-4,class:'axt'},efFig);b.textContent='leave-one-out Dice';
+ const off={"MedSAM+UNet":[-10,16],"SAM":[10,-8],"MedSAM":[10,-8],"FCN":[-10,-10],"SegNet":[10,14],"UNet":[10,-8],"DeepLabV3+":[-10,14],"UNet-ResNet34":[-10,-8],"Lightweight UNet":[10,4],"SegFormer":[10,-8]};
+ M.forEach(m=>{const e=D.eff[m];const x=sx(e[0]),y=sy(e[6]);
+  el('circle',{cx:x,cy:y,r:7,fill:col(m),stroke:css('--paper'),'stroke-width':2},efFig);
+  const o=off[m];const t=el('text',{x:x+o[0],y:y+o[1],'text-anchor':o[0]<0?'end':'start','font-size':'12',fill:css('--ink2')},efFig);t.textContent=sn(m);
+  const h=el('circle',{cx:x,cy:y,r:14,fill:'transparent'},efFig);
+  h.addEventListener('mousemove',ev=>showTip(ev,'<b>'+m+'</b><br>'+e[0]+' M parameters<br>'+e[3]+' ms per image, '+e[4]+' images per second<br>'+e[2]+' GB memory<br>Dice '+f3(e[6])));h.addEventListener('mouseleave',hideTip);
+ });
+}
+
+/* thumbnails */
+function thumbs(){
+ const t1=document.getElementById('th1');clear(t1);
+ M.forEach((m,r)=>{const ci=D.ci[m][0];const y=4+r*6.4;el('line',{x1:10+ci[0]*230,x2:10+ci[1]*230,y1:y,y2:y,stroke:col(m),'stroke-width':2.4,'stroke-linecap':'round'},t1)});
+ const t2=document.getElementById('th2');clear(t2);
+ M.forEach((m,r)=>{const R=D.ranks[m];const y=4+r*6.4;el('line',{x1:10+(Math.max(1,R[0]-R[2])-1)*20,x2:10+(Math.min(10,R[0]+R[2])-1)*20,y1:y,y2:y,stroke:col(m),'stroke-width':3,opacity:.4,'stroke-linecap':'round'},t2);el('circle',{cx:10+(R[0]-1)*20,cy:y,r:2.4,fill:col(m)},t2)});
+ const t3=document.getElementById('th3');clear(t3);
+ M.forEach(m=>el('polyline',{points:D.ds2[m].map((v,k)=>(10+k*45)+','+(66-v*62)).join(' '),fill:'none',stroke:col(m),'stroke-width':1.6},t3));
+ const t4=document.getElementById('th4');clear(t4);
+ M.forEach(m=>{const e=D.eff[m];el('circle',{cx:10+180*(Math.log10(e[0])-Math.log10(2))/2,cy:66-e[6]*78,r:3.5,fill:col(m)},t4)});
+}
+
+/* nav spy */
+const links=[...document.querySelectorAll('#rail a, #topbar a')];
+const ids=[...new Set(links.map(a=>a.getAttribute('href').slice(1)))];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-20% 0px -70% 0px'});
+ids.forEach(id=>{const e=document.getElementById(id);if(e)io.observe(e)});
+
+function redraw(){drawBoard(false);drawCI();drawD();drawRk();drawLC();drawSh();drawEf();thumbs()}
+redraw();
+})();
+</script>
+</body>
+</html>
