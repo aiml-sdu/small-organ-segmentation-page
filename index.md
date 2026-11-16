@@ -1,14 +1,16 @@
-# Challenges in Deep Learning-Based Small Organ Segmentation
+# Challenges in Deep Learning-Based Small Organ Segmentation: A Benchmarking Perspective for Medical Research with Limited Datasets
 
 > Markdown version of the project page at https://aiml-sdu.github.io/small-organ-segmentation-page/. Interactive figures are on the web page. Every number here also appears there and comes from the paper or its stored results.
 
-A benchmarking perspective for medical research with limited datasets
+[Research](https://aiml-sdu.github.io) / Benchmark
 
-With nine images, a leaderboard of ten segmentation models gives one firm answer at the top and noise below it.
+When a lab has nine annotated images, how much of a model leaderboard can it trust? We tuned ten segmentation networks on small histology sections of mouse arteries and asked which parts of the resulting order survive intervals, folds and a second dataset. The answer is one firm first place and noise below it.
 
-Turn the lens. The same ten models are measured under each protocol, and the board reorders.
+Phongsakon Mark Konrad and seven coauthors · Biomedical Signal Processing and Control, August 2026 · [Journal](https://www.sciencedirect.com/science/article/pii/S1746809426017805) · [PDF](https://arxiv.org/pdf/2509.05892) · [Markdown](index.md) · Cite
 
-## TL;DR
+*Figure.* IllustrationAn artery section under the microscope. One predicted outline is sharp and the others blur into each other. The drawing carries no measured values. The measured board is Figure 1.
+
+## In short
 
 - We tuned ten segmentation models with 100 Bayesian trials each and scored them on nine histology images of injured mouse carotid arteries.
 
@@ -29,6 +31,12 @@ Turn the lens. The same ten models are measured under each protocol, and the boa
 **Finally,** we test the order on an independent dataset of 153 images. Trained on it at nine images, DeepLabV3+ and UNet lead and the foundation models fall to 3rd to 5th. Across the sizes 9, 25, 50, 100 and 150, rankings stay volatile up to 25 images and stabilise from 50.
 
 What would have refuted us? Intervals that kept all ten models apart, ranks that held from fold to fold, or a second dataset that repeated the first board. We tested all three. The first held only for MedSAM, and the other two failed.
+
+Figure 1 shows the measured board. Each button is one of the validation protocols in the paper, and the frosted label names the protocol in use.
+
+Turn the lens. The same ten models are measured under each protocol, and the board reorders.
+
+*Figure.* **Figure 1. One board, many lenses.** Pick a protocol and the ten models reorder. Values are the paper's reported tables1, and whiskers show the bootstrap 95% confidence interval where the paper reports one2.
 
 ## Terms we use
 
@@ -132,6 +140,12 @@ Our recommendation follows from these four chapters. With nine images, report bo
 
 Next we want the same test on other organs and stains, and on more seeds, to see where the threshold of 50 images moves.
 
+## Footnotes
+
+- Every plotted value is copied from the tables of the published paper. Nothing on this page is simulated. ↩
+
+- Whiskers appear only where the paper reports an interval. The other lenses show means alone. ↩
+
 ## Cite this article
 
 ```bibtex
@@ -149,6 +163,26 @@ Next we want the same test on other organs and stains, and on more seeds, to see
 }
 ```
 
-Every plotted value is copied from the tables of the published paper. Nothing on this page is simulated.
+Plotted values come from the published paper's tables.
 
 A project of the [Applied and Interpretable Machine Learning Research Group](https://aiml-sdu.github.io) at the University of Southern Denmark.
+
+Authors
+
+Phongsakon Mark Konrad, Andrei-Alexandru Popa, Yaser Sabzehmeidani, Liang Zhong, Madhulika Tripathy, Andrei Constantinescu, Elisa A. Liehn, Serkan Ayvaz
+
+Affiliations
+
+University of Southern Denmark · Duke-NUS · National Heart Center Singapore · Carol Davila University of Medicine and Pharmacy Bucharest
+
+Published
+
+August 2026
+
+Journal
+
+[Biomedical Signal Processing and Control](https://www.sciencedirect.com/science/article/pii/S1746809426017805)
+
+Full paper
+
+[PDF](https://arxiv.org/pdf/2509.05892) · [arXiv](https://arxiv.org/abs/2509.05892) · [Markdown](index.md) · Cite
